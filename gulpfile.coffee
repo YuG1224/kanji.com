@@ -12,17 +12,28 @@ gulp.task "coffee:app", () ->
     .pipe coffee()
     .pipe gulp.dest "./server"
 
-gulp.task "coffee", ["coffee:app"]
+gulp.task "coffee:routes", () ->
+  gulp.src ["./src/routes/index.coffee"]
+    .pipe coffee()
+    .pipe gulp.dest "./server/routes/"
+
+gulp.task "coffee:v0", () ->
+  gulp.src ["./src/routes/v0/*.coffee"]
+    .pipe coffee()
+    .pipe gulp.dest "./server/routes/v0/"
+
+gulp.task "coffee", ["coffee:app", "coffee:routes", "coffee:v0"]
 
 gulp.task "watch", () ->
   gulp.watch ["./src/*.coffee"], ["coffee:app"]
+  gulp.watch ["./src/**/*.coffee"], ["coffee:v0"]
 
 gulp.task "generate", (done) ->
   runSequence "clean", "coffee", done
 
 gulp.task "nodemon", () ->
   nodemon
-    script: "./src/app.coffee"
+    script: "./server/app.js"
     env:
       NODE_ENV: "development"
 
