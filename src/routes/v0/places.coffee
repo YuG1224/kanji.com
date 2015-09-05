@@ -34,6 +34,11 @@ exports.index = (req, res) ->
     c["seatingCapacity.max"] =
       "$gte": +query.seatingCapacity
 
+  # 予算で検索
+  if query.budget
+    c["budget"] =
+      "$lte": +query.budget
+
   if query.sort
     s[query.sort] = 1
 
