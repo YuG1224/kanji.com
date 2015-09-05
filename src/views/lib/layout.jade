@@ -1,0 +1,16 @@
+doctype html
+html(lang=lang)
+  head
+    title
+      | kanji.com
+    meta(charset="UTF-8")
+    meta(content="width=device-width, minimum-scale=1.0, maximum-scale=1.0", name="viewport")
+    link(rel="stylesheet", href="/css/app.css")
+
+  body
+    include header
+
+    block content
+
+    //- input#csrf(type="hidden", value=csrfToken)
+    block scripts

@@ -1,14 +1,30 @@
+bodyParser = require "body-parser"
+cookieParser = require "cookie-parser"
+compression = require "compression"
+# csrf = require "csrf"
 express = require "express"
-http = require "http"
-path = require "path"
-# moment = require "moment"
-config = require "./config"
 fs = require "fs"
+http = require "http"
+# moment = require "moment"
+path = require "path"
+
+config = require "./config"
+
 
 app = express()
 server = http.createServer app
 
 app.set "port", config.port
+app.set "views", "#{__dirname}/views"
+app.set "view engine", "jade"
+app.set "x-powered-by", false
+app.use compression
+  level: 1
+app.use bodyParser.json()
+app.use bodyParser.urlencoded
+  extended: true
+app.use cookieParser()
+
 
 # URLルーティング
 route = require "./routes"
@@ -28,7 +44,7 @@ for val in files
   if api.update then app.put "/v0/#{val}/:id", api.update
   if api.destroy then app.delete "/v0/#{val}/id", api.destroy
 
-app.use express.static "../client"
+app.use express.static "#{__dirname}/../client"
 
 server.listen app.get("port"), ->
   console.log "Server listen on port #{app.get('port')}"

@@ -1,0 +1,24 @@
+extends lib/layout.jade
+
+block content
+  .container#main
+    .map_canvas
+    .tool
+      .budget
+        input(type="number", v-model="tool.budget", placeholder="budget")
+      .seatingCapacity
+        input(type="number", v-model="tool.seatingCapacity", placeholder="seating capacity")
+      .standingCapacity
+        input(type="number", v-model="tool.standingCapacity", placeholder="standing capacity")
+      .address
+        input(type="text", v-model="tool.address", placeholder="address")
+
+  //- .container
+  //-   .row
+      //- article.col-sm-6#list
+      //- article.col-sm-6#map
+      //- article.col-sm-12#tool
+
+block scripts
+  //- script(src="//maps.googleapis.com/maps/api/js?key=AIzaSyDRRQHimqeSQZe57OAY9brwi8zAkM7RPJE&callback=initMap")
+  script(src="/js/index.js")
