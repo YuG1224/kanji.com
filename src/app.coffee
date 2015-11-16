@@ -25,6 +25,18 @@ app.use bodyParser.urlencoded
   extended: true
 app.use cookieParser()
 
+# # csrf対策
+# app.use csrf()
+# app.use (err, req, res, next) ->
+#   if err.code isnt "EBADCSRFTOKEN"
+#     return next err
+#   res.status 403
+#     .send "session has expired or form tampered with"
+#   return
+# app.use (req, res, next) ->
+#   res.csrfToken = req.csrfToken()
+#   next()
+#   return
 
 # URLルーティング
 route = require "./routes"
